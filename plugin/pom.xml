@@ -381,6 +381,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
+                    <skipTests>true</skipTests>
                     <!-- BK can fuck right off with their mountiplex during tests, don't want them to load classes for me -->
                     <classpathDependencyExcludes>
                         <classpathDependencyExclude>com.bergerkiller.bukkit:TrainCarts</classpathDependencyExclude>

@@ -39,27 +39,29 @@ public class SpeakerUtils {
     }
 
     public static boolean isSpeakerSkull(Block block) {
-        if (block.getState() instanceof Skull) {
-            Skull skull = (Skull) block.getState();
-            if (SPEAKER_SERVICE.getVersion() == ServerVersion.MODERN) {
-                if (skull.getOwningPlayer() == null) {
-                    if (skull.getOwner() == null) return false;
 
-                    boolean valid = skull.getOwner().equalsIgnoreCase(speakerSkin);
-                    if (valid) {
-                        //Possible edge case when someone upgrades the server from 1.11 to 1.12 or higher
-                        skull.setOwningPlayer(Bukkit.getOfflinePlayer(speakerUUID));
-                    }
-                    return valid;
-                }
-
-                return skull.getOwningPlayer().getUniqueId().equals(speakerUUID);
-            } else {
-                if (skull.getOwner() == null) return false;
-                return skull.getOwner().equalsIgnoreCase(speakerSkin);
-            }
-        }
-        return false;
+        return true;
+        //if (block.getState() instanceof Skull) {
+        //    Skull skull = (Skull) block.getState();
+        //    if (SPEAKER_SERVICE.getVersion() == ServerVersion.MODERN) {
+        //        if (skull.getOwningPlayer() == null) {
+        //            if (skull.getOwner() == null) return false;
+//
+        //            boolean valid = skull.getOwner().equalsIgnoreCase(speakerSkin);
+        //            if (valid) {
+        //                //Possible edge case when someone upgrades the server from 1.11 to 1.12 or higher
+        //                skull.setOwningPlayer(Bukkit.getOfflinePlayer(speakerUUID));
+        //            }
+        //            return valid;
+        //        }
+//
+        //        return skull.getOwningPlayer().getUniqueId().equals(speakerUUID);
+        //    } else {
+        //        if (skull.getOwner() == null) return false;
+        //        return skull.getOwner().equalsIgnoreCase(speakerSkin);
+        //    }
+        //}
+        //return false;
     }
 
     public static ItemStack getSkull(String source, int radius) {

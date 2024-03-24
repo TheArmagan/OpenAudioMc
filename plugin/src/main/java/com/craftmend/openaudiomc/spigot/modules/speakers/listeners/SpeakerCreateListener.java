@@ -13,11 +13,13 @@ import com.craftmend.openaudiomc.spigot.modules.speakers.utils.SpeakerUtils;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import lombok.AllArgsConstructor;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.EnumSet;
 import java.util.UUID;
@@ -31,14 +33,17 @@ public class SpeakerCreateListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         Block placed = event.getBlockPlaced();
-        if (SpeakerUtils.isSpeakerSkull(placed)) {
+        ItemStack item = event.getItemInHand();
+        if (item == null || item.getType() == Material.AIR) return;
+        NBTItem nbti = new NBTItem(event.getItemInHand());
+        if (nbti.hasTag("oa-src") && nbti.hasTag("oa-radius")) {
             if (!isAllowed(event.getPlayer())) {
                 event.getPlayer().sendMessage(MagicValue.COMMAND_PREFIX.get(String.class) + "You are not allowed to place OpenAudioMc speakers, please ask the server administrator for more information.");
                 event.setCancelled(true);
                 return;
             }
 
-            NBTItem nbti = new NBTItem(event.getItemInHand());
+
             String src = nbti.getString("oa-src");
             Integer radius = nbti.getInteger("oa-radius");
 

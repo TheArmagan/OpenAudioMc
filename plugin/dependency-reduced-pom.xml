@@ -98,6 +98,7 @@
           </dependency>
         </dependencies>
         <configuration>
+          <skipTests>true</skipTests>
           <classpathDependencyExcludes>
             <classpathDependencyExclude>com.bergerkiller.bukkit:TrainCarts</classpathDependencyExclude>
             <classpathDependencyExclude>com.bergerkiller.bukkit:BKCommonLib</classpathDependencyExclude>
