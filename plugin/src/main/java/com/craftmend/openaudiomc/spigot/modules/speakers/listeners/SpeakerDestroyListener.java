@@ -41,33 +41,43 @@ public class SpeakerDestroyListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Block broken = event.getBlock();
-        if (SpeakerUtils.isSpeakerSkull(broken)) {
-            if (!isAllowed(event.getPlayer())) {
-                event.getPlayer().sendMessage(MagicValue.COMMAND_PREFIX.get(String.class) + "You are not allowed to break OpenAudioMc speakers, please ask the server administrator for more information.");
-                event.setCancelled(true);
-                return;
-            }
 
-            MappedLocation location = new MappedLocation(broken.getLocation());
-            Speaker speaker = speakerService.getSpeaker(location);
-            if (speaker == null) return;
+        MappedLocation location = new MappedLocation(broken.getLocation());
+        Speaker speaker = speakerService.getSpeaker(location);
+        if (speaker == null) return;
 
-            speakerService.unlistSpeaker(location);
+        speakerService.unlistSpeaker(location);
 
-            //save to config
-            OpenAudioMc.getService(DatabaseService.class).getRepository(Speaker.class).delete(speaker);
+        //save to config
+        OpenAudioMc.getService(DatabaseService.class).getRepository(Speaker.class).delete(speaker);
 
-            event.getPlayer().sendMessage(MagicValue.COMMAND_PREFIX.get(String.class) + ChatColor.RED + "Speaker destroyed");
-
-            event.getBlock().getWorld().dropItem(
-                    event.getBlock().getLocation(),
-                    SpeakerUtils.getSkull(speaker.getSource(), speaker.getRadius())
-            );
-
-            try {
-                event.setDropItems(false);
-            } catch (Exception ignored) {}
-        }
+        //if (SpeakerUtils.isSpeakerSkull(broken)) {
+        //    if (!isAllowed(event.getPlayer())) {
+        //        event.getPlayer().sendMessage(MagicValue.COMMAND_PREFIX.get(String.class) + "You are not allowed to break OpenAudioMc speakers, please ask the server administrator for more information.");
+        //        event.setCancelled(true);
+        //        return;
+        //    }
+//
+        //    MappedLocation location = new MappedLocation(broken.getLocation());
+        //    Speaker speaker = speakerService.getSpeaker(location);
+        //    if (speaker == null) return;
+//
+        //    speakerService.unlistSpeaker(location);
+//
+        //    //save to config
+        //    OpenAudioMc.getService(DatabaseService.class).getRepository(Speaker.class).delete(speaker);
+//
+        //    event.getPlayer().sendMessage(MagicValue.COMMAND_PREFIX.get(String.class) + ChatColor.RED + "Speaker destroyed");
+//
+        //    event.getBlock().getWorld().dropItem(
+        //            event.getBlock().getLocation(),
+        //            SpeakerUtils.getSkull(speaker.getSource(), speaker.getRadius())
+        //    );
+//
+        //    try {
+        //        event.setDropItems(false);
+        //    } catch (Exception ignored) {}
+        //}
     }
 
     private boolean isAllowed(Player player) {
