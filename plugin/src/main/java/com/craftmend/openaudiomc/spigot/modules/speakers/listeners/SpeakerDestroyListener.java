@@ -51,6 +51,14 @@ public class SpeakerDestroyListener implements Listener {
         //save to config
         OpenAudioMc.getService(DatabaseService.class).getRepository(Speaker.class).delete(speaker);
 
+        event.getBlock().getWorld().dropItem(
+                event.getBlock().getLocation(),
+                SpeakerUtils.getSkull(speaker.getSource(), speaker.getRadius())
+        );
+        try {
+            event.setDropItems(false);
+        } catch (Exception ignored) {}
+
         //if (SpeakerUtils.isSpeakerSkull(broken)) {
         //    if (!isAllowed(event.getPlayer())) {
         //        event.getPlayer().sendMessage(MagicValue.COMMAND_PREFIX.get(String.class) + "You are not allowed to break OpenAudioMc speakers, please ask the server administrator for more information.");
